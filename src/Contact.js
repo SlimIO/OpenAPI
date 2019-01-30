@@ -28,10 +28,15 @@ class Contact {
             throw new Error("email must be a valid email string");
         }
 
-        // TODO: validate url and email
+        // Set properties
         this.name = name;
-        this.url = new URL(url);
         this.email = email;
+        try {
+            this.url = new URL(url);
+        }
+        catch (err) {
+            throw new Error("url must be a valid WHATWG URL");
+        }
     }
 
     /**
