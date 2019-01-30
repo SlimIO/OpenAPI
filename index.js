@@ -21,15 +21,18 @@ const DEFAULT_ENDPOINT = "/";
  */
 class OpenAPI {
     /**
+     * @doc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object
+     *
      * @constructor
      * @memberof OpenAPI#
+     * @desc This is the root document object of the OpenAPI document.
+     *
      * @param {Object} fields OpenAPI root fields
      * @param {String} [fields.openapi=3.0.2] Semantic version number of the OpenAPI Specification version that the OpenAPI document uses.
      * @param {String} [fields.paths=/] The available paths and operations for the API.
      *
      * @throws {Error}
      * @throws {TypeError}
-     * @doc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object
      */
     constructor(fields = Object.create(null)) {
         const isOpenApiStr = is.string(fields.openapi);
@@ -46,14 +49,23 @@ class OpenAPI {
     }
 
     /**
+     * @doc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#info-object
+     *
      * @method info
-     * @desc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#info-object
      * @memberof OpenAPI#
+     * @desc The object provides metadata about the API.
+     * The metadata MAY be used by the clients if needed, and MAY be presented in editing or documentation generation tools for convenience.
+     *
      * @param {Object} fields Information Fields
+     * @param {String} [fields.title] The title of the application.
+     * @param {String} [fields.description] A short description of the application. CommonMark syntax MAY be used for rich text representation.
+     * @param {String} [fields.version] The version of the OpenAPI document (which is distinct from the OpenAPI Specification version)
+     * @param {String} [fields.termsOfService] A URL to the Terms of Service for the API. MUST be in the format of a URL.
+     * @param {License} [fields.license] The license information for the exposed API.
+     * @param {Contact[] | Contact} [fields.contact] The contact information for the exposed API.
      * @returns {void}
      *
      * @throws {TypeError}
-     * @doc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#info-object
      */
     info(fields = Object.create(null)) {
         if (!is.nullOrUndefined(fields.title) && !is.string(fields.title)) {
