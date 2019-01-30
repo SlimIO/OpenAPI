@@ -1,13 +1,13 @@
 /**
- * @class Licence
+ * @class License
  *
  * @property {String} name The license name used for the API.
  * @property {String} url A URL to the license used for the API. MUST be in the format of a URL.
  */
-class Licence {
+class License {
     /**
      * @constructor
-     * @memberof Licence#
+     * @memberof License#
      * @param {!String} name The license name used for the API.
      * @param {String} [url] A URL to the license used for the API. MUST be in the format of a URL.
      *
@@ -23,4 +23,4 @@ class Licence {
     }
 }
 
-module.exports = Licence;
+module.exports = License;

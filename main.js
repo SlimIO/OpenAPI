@@ -1,4 +1,4 @@
-const OpenAPI = require("./");
+const OpenAPI = require(".");
 
 const _t = new OpenAPI();
 _t.info();

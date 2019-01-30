@@ -6,6 +6,13 @@ const { join } = require("path");
 const is = require("@slimio/is");
 const semver = require("semver");
 
+// Internal
+const { License, Contact } = require("./src");
+
+// CONSTANTS
+const OPENAPI_VERSION = "3.0.2";
+const DEFAULT_ENDPOINT = "/";
+
 /**
  * @class OpenAPI
  */
@@ -24,7 +31,8 @@ class OpenAPI {
             throw new Error("openapi must be a valid semver version");
         }
 
-        this.openapi = isOpenApiStr ? fields.openapi : "3.0.2";
+        this.openapi = isOpenApiStr ? fields.openapi : OPENAPI_VERSION;
+        this.paths = fields.paths || DEFAULT_ENDPOINT;
         this._info = Object.create(null);
     }
 
@@ -48,21 +56,32 @@ class OpenAPI {
         if (!is.nullOrUndefined(fields.version) && !is.string(fields.version)) {
             throw new TypeError("version must be a string");
         }
+        if (!is.nullOrUndefined(fields.termsOfService) && !is.string(fields.termsOfService)) {
+            throw new TypeError("termsOfService must be a string");
+        }
+        if (!is.nullOrUndefined(fields.license) && !(fields.license instanceof License)) {
+            throw new TypeError("license must be a valid License Object");
+        }
 
         // Parse and read local package.json
         const pkgDefault = Object.create(null);
         try {
             const buf = readFileSync(join(process.cwd(), "package.json"));
-            const { name: title, description, version } = JSON.parse(buf);
+            const { name: title, description, version, license } = JSON.parse(buf);
+            // TODO: read local LICENSE file if exist ?
 
-            Object.assign(pkgDefault, { title, description, version });
+            Object.assign(pkgDefault, {
+                title, description, version, license: new License(license)
+            });
         }
         catch (err) {
             // do nothing...
         }
 
-        const { title, description, version } = fields;
-        Object.assign(this._info, { title, description, version }, pkgDefault);
+        const { title, description, version, licence, termsOfService } = fields;
+        Object.assign(this._info, {
+            title, description, version, licence, termsOfService
+        }, pkgDefault);
     }
 
     /**
@@ -77,5 +96,9 @@ class OpenAPI {
         };
     }
 }
+
+// Exports Class Members
+OpenAPI.License = License;
+OpenAPI.Contact = Contact;
 
 module.exports = OpenAPI;
