@@ -83,6 +83,9 @@ class OpenAPI {
         if (!is.nullOrUndefined(fields.license) && !(fields.license instanceof License)) {
             throw new TypeError("license must be a valid License Object");
         }
+        if (!is.nullOrUndefined(fields.contact) && !(fields.contact instanceof Contact)) {
+            throw new TypeError("contact must be a valid Contact Object");
+        }
 
         // Parse and read local package.json
         const pkgDefault = Object.create(null);
@@ -99,9 +102,9 @@ class OpenAPI {
             // do nothing...
         }
 
-        const { title, description, version, licence, termsOfService } = fields;
+        const { title, description, version, licence, termsOfService, contact } = fields;
         Object.assign(this._info, {
-            title, description, version, licence, termsOfService
+            title, description, version, licence, termsOfService, contact
         }, pkgDefault);
     }
 
