@@ -5,15 +5,19 @@ declare class License {
 }
 
 declare class Contact {
-    constructor(name: string, url: string, email: string);
+    constructor(name: string, url: string | URL, email: string);
     public name: string;
-    public url: string;
+    public url: URL;
     public email: string;
 }
 
 declare class OpenAPI {
-    constructor(options: OpenAPI.Root);
-    toJSON(): any;
+    public static License: typeof License;
+    public static Contact: typeof Contact;
+
+    constructor(options?: OpenAPI.Root);
+    info(fields?: OpenAPI.Info): void;
+    toJSON(): OpenAPI.JSON;
 }
 
 declare namespace OpenAPI {
@@ -24,6 +28,36 @@ declare namespace OpenAPI {
 
     interface Root {
         openapi?: string;
+        paths?: string;
+    }
+
+    interface Info {
+        title?: string;
+        description?: string;
+        version?: string;
+        termsOfService?: string;
+        license?: License,
+        contact?: Contact
+    }
+
+    interface JSON {
+        openapi: string;
+        paths: string;
+        info: {
+            title: string;
+            version: string;
+            description?: string;
+            termsOfService?: string;
+            license?: {
+                name: string;
+                url?: string;
+            };
+            contact?: {
+                name: string;
+                email: string;
+                url: string;
+            }
+        }
     }
 }
 
