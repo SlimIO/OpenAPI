@@ -15,20 +15,29 @@ const DEFAULT_ENDPOINT = "/";
 
 /**
  * @class OpenAPI
+ *
+ * @version 0.1.0
+ * @author GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>
  */
 class OpenAPI {
     /**
      * @constructor
+     * @memberof OpenAPI#
      * @param {Object} fields OpenAPI root fields
      * @param {String} [fields.openapi=3.0.2] Semantic version number of the OpenAPI Specification version that the OpenAPI document uses.
+     * @param {String} [fields.paths=/] The available paths and operations for the API.
      *
      * @throws {Error}
+     * @throws {TypeError}
      * @doc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object
      */
     constructor(fields = Object.create(null)) {
         const isOpenApiStr = is.string(fields.openapi);
         if (isOpenApiStr && semver.valid(fields.openapi) === null) {
             throw new Error("openapi must be a valid semver version");
+        }
+        if (!is.nullOrUndefined(fields.paths) && !is.string(fields.paths)) {
+            throw new TypeError("paths must be a string");
         }
 
         this.openapi = isOpenApiStr ? fields.openapi : OPENAPI_VERSION;
@@ -92,7 +101,8 @@ class OpenAPI {
     toJSON() {
         return {
             openapi: this.openapi,
-            info: this._info
+            info: this._info,
+            paths: this.paths
         };
     }
 }
