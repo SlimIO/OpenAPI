@@ -11,9 +11,15 @@ declare class Contact {
     public email: string;
 }
 
+declare class Servers {
+    constructor(url: URL | string, options?: { description?: string; variables?: Map });
+    public url: URL;
+}
+
 declare class OpenAPI {
     public static License: typeof License;
     public static Contact: typeof Contact;
+    public static Servers: typeof Servers;
 
     constructor(options?: OpenAPI.Root);
     info(fields?: OpenAPI.Info): void;
@@ -29,6 +35,7 @@ declare namespace OpenAPI {
     interface Root {
         openapi?: string;
         paths?: string;
+        servers?: Servers | Servers[];
     }
 
     interface Info {
@@ -40,9 +47,16 @@ declare namespace OpenAPI {
         contact?: Contact
     }
 
+    interface ServersJSON {
+        url: string;
+        description?: string;
+        variables?: any;
+    }
+
     interface JSON {
         openapi: string;
         paths: string;
+        servers: ServersJSON | ServersJSON[];
         info: {
             title: string;
             version: string;
