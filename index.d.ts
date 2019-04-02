@@ -1,6 +1,8 @@
 declare class License {
     constructor(name: OpenAPI.AvailableLicenses | string, url?: string);
 
+    public static List: OpenAPI.AvailableLicenses;
+
     public name: string;
     public url: string;
 }
@@ -44,8 +46,7 @@ declare class OpenAPI {
 
 declare namespace OpenAPI {
     enum AvailableLicenses {
-        MIT, GPL, WTFPL, MSPL, ISC, UNLICENSE,
-        ZLIB
+        Apache2
     }
 
     interface Root {
