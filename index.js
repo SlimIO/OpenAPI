@@ -7,7 +7,7 @@ const is = require("@slimio/is");
 const semver = require("semver");
 
 // Internal
-const { License, Contact, Servers } = require("./src");
+const { License, Contact, Servers, Documentation } = require("./src");
 
 // CONSTANTS
 const OPENAPI_VERSION = "3.0.2";
@@ -31,6 +31,7 @@ class OpenAPI {
      * @param {String} [fields.openapi=3.0.2] Semantic version number of the OpenAPI Specification version that the OpenAPI document uses.
      * @param {String} [fields.paths=/] The available paths and operations for the API.
      * @param {Servers | Servers[]} [fields.servers] An array of Server Objects, which provide connectivity information to a target server.
+     * @param {Documentation} [fields.externalDocs] Additional external documentation.
      *
      * @throws {Error}
      * @throws {TypeError}
@@ -46,6 +47,8 @@ class OpenAPI {
 
         this.openapi = isOpenApiStr ? fields.openapi : OPENAPI_VERSION;
         this.paths = fields.paths || DEFAULT_ENDPOINT;
+        this.externalDocs = fields.externalDocs || {};
+
         this._info = Object.create(null);
         if (fields.servers instanceof Servers) {
             this.servers = fields.servers;
@@ -128,7 +131,8 @@ class OpenAPI {
             openapi: this.openapi,
             info: this._info,
             servers: this.servers,
-            paths: this.paths
+            paths: this.paths,
+            externalDocs: this.externalDocs
         };
     }
 }
