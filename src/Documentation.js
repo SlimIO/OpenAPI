@@ -1,5 +1,8 @@
 /**
  * @class Documentation
+ *
+ * @property {URL} url
+ * @property {String} description
  */
 class Documentation {
     /**
@@ -7,7 +10,7 @@ class Documentation {
      * @param {!String | URL} url The URL for the target documentation.
      * @param {String} [description] A short description of the target documentation.
      */
-    constructor(url, description) {
+    constructor(url, description = "") {
         this.url = new URL(url);
         this.description = description;
     }
@@ -18,7 +21,10 @@ class Documentation {
      * @returns {Object}
      */
     toJSON() {
-        return { url: this.url.href, description: this.description };
+        return {
+            url: this.url.href,
+            description: this.description
+        };
     }
 }
 

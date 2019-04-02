@@ -1,11 +1,14 @@
 declare class License {
     constructor(name: OpenAPI.AvailableLicenses | string, url?: string);
+
     public name: string;
     public url: string;
 }
 
 declare class Contact {
     constructor(name: string, url: string | URL, email: string);
+    toJSON(): OpenAPI.ContactJSON;
+
     public name: string;
     public url: URL;
     public email: string;
@@ -13,13 +16,26 @@ declare class Contact {
 
 declare class Servers {
     constructor(url: URL | string, options?: { description?: string; variables?: Map });
+    toJSON(): OpenAPI.ServersJSON;
+
     public url: URL;
+    public description: string;
+    public variables: Map<string, any>;
+}
+
+declare class Documentation {
+    constructor(url: URL | string, description: string);
+    toJSON(): OpenAPI.DocumentationJSON;
+
+    public url: URL;
+    public description: string;
 }
 
 declare class OpenAPI {
     public static License: typeof License;
     public static Contact: typeof Contact;
     public static Servers: typeof Servers;
+    public static Documentation: typeof Documentation;
 
     constructor(options?: OpenAPI.Root);
     info(fields?: OpenAPI.Info): void;
@@ -36,6 +52,17 @@ declare namespace OpenAPI {
         openapi?: string;
         paths?: string;
         servers?: Servers | Servers[];
+    }
+
+    interface DocumentationJSON {
+        url: string;
+        description?: string;
+    }
+
+    interface ContactJSON {
+        name: string;
+        email: string;
+        url: string;
     }
 
     interface Info {
@@ -57,6 +84,7 @@ declare namespace OpenAPI {
         openapi: string;
         paths: string;
         servers: ServersJSON | ServersJSON[];
+        externalDocs?: DocumentationJSON;
         info: {
             title: string;
             version: string;
@@ -66,11 +94,7 @@ declare namespace OpenAPI {
                 name: string;
                 url?: string;
             };
-            contact?: {
-                name: string;
-                email: string;
-                url: string;
-            }
+            contact?: ContactJSON
         }
     }
 }

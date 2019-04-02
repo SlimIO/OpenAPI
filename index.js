@@ -47,7 +47,7 @@ class OpenAPI {
 
         this.openapi = isOpenApiStr ? fields.openapi : OPENAPI_VERSION;
         this.paths = fields.paths || DEFAULT_ENDPOINT;
-        this.externalDocs = fields.externalDocs || {};
+        this.externalDocs = fields.externalDocs || null;
 
         this._info = Object.create(null);
         if (fields.servers instanceof Servers) {
@@ -141,5 +141,6 @@ class OpenAPI {
 OpenAPI.License = License;
 OpenAPI.Contact = Contact;
 OpenAPI.Servers = Servers;
+OpenAPI.Documentation = Documentation;
 
 module.exports = OpenAPI;

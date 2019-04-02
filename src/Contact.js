@@ -45,7 +45,11 @@ class Contact {
      * @returns {Object}
      */
     toJSON() {
-        return { name: this.name, url: this.url.href, email: this.email };
+        return {
+            name: this.name,
+            url: this.url.href,
+            email: this.email
+        };
     }
 }
 
