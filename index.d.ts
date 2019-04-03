@@ -45,8 +45,9 @@ declare class OpenAPI {
 }
 
 declare namespace OpenAPI {
-    enum AvailableLicenses {
-        Apache2
+    interface AvailableLicenses {
+        Apache2: symbol;
+        MIT: symbol;
     }
 
     interface Root {
@@ -71,7 +72,7 @@ declare namespace OpenAPI {
         description?: string;
         version?: string;
         termsOfService?: string;
-        license?: License,
+        license?: License | string | symbol,
         contact?: Contact
     }
 

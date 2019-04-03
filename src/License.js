@@ -1,11 +1,16 @@
 // Symbols
 const SymApache2 = Symbol("Apache 2.0");
+const SymMIT = Symbol("MIT");
 
 // URLs
 const LicensesURL = {
     [SymApache2]: {
         name: "Apache2.0",
         url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    [SymMIT]: {
+        name: "MIT",
+        url: "https://opensource.org/licenses/MIT"
     }
 };
 
@@ -35,6 +40,7 @@ class License {
             if (!Reflect.has(LicensesURL, name)) {
                 throw new Error(`Unable to found Symbol ${name} in LicensesURL`);
             }
+
             const match = LicensesURL[name];
             this.name = match.name;
             this.url = match.url;
@@ -47,7 +53,8 @@ class License {
 }
 
 License.List = {
-    Apache2: SymApache2
+    Apache2: SymApache2,
+    MIT: SymMIT
 };
 
 module.exports = License;

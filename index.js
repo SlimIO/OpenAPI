@@ -93,9 +93,6 @@ class OpenAPI {
         if (!is.nullOrUndefined(fields.termsOfService) && !is.string(fields.termsOfService)) {
             throw new TypeError("termsOfService must be a string");
         }
-        if (!is.nullOrUndefined(fields.license) && !(fields.license instanceof License)) {
-            throw new TypeError("license must be a valid License Object");
-        }
         if (!is.nullOrUndefined(fields.contact) && !(fields.contact instanceof Contact)) {
             throw new TypeError("contact must be a valid Contact Object");
         }
@@ -105,14 +102,22 @@ class OpenAPI {
         try {
             const buf = readFileSync(join(process.cwd(), "package.json"));
             const { name: title, description, version, license } = JSON.parse(buf);
-            // TODO: read local LICENSE file if exist ?
+
+            let finalLicense = license;
+            const isPrimitive = is.symbol(fields.license) || is.string(fields.license);
+            if (fields.license instanceof License || isPrimitive) {
+                finalLicense = isPrimitive ? new License(fields.license) : fields.license;
+            }
 
             Object.assign(pkgDefault, {
-                title, description, version, license: new License(license)
+                title,
+                description,
+                version,
+                license: finalLicense
             });
         }
         catch (err) {
-            // do nothing...
+            console.error(err);
         }
 
         const { title, description, version, licence, termsOfService, contact } = fields;
