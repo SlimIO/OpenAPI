@@ -108,22 +108,17 @@ class OpenAPI {
             if (fields.license instanceof License || isPrimitive) {
                 finalLicense = isPrimitive ? new License(fields.license) : fields.license;
             }
+            delete fields.license;
 
             Object.assign(pkgDefault, {
-                title,
-                description,
-                version,
-                license: finalLicense
+                title, description, version, license: finalLicense
             });
         }
         catch (err) {
             console.error(err);
         }
 
-        const { title, description, version, licence, termsOfService, contact } = fields;
-        Object.assign(this._info, {
-            title, description, version, licence, termsOfService, contact
-        }, pkgDefault);
+        Object.assign(this._info, pkgDefault, fields);
     }
 
     /**
