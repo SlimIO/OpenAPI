@@ -17,7 +17,7 @@ declare class Contact {
 }
 
 declare class Servers {
-    constructor(url: URL | string, options?: { description?: string; variables?: Map });
+    constructor(url: URL | string, options?: { description?: string; variables?: Map<any, any> });
     toJSON(): OpenAPI.ServersJSON;
 
     public url: URL;
