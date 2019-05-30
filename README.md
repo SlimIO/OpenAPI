@@ -24,5 +24,13 @@ TBC
 ## API
 TBC
 
+## Dependencies
+
+|Name|Refactoring|Security Risk|Usage|
+|---|---|---|---|
+|[@slimio/is](https://github.com/SlimIO/is#readme)|Minor|Low|Type Checker|
+|[email-validator](http://github.com/manishsaraan/email-validator)|Minor|Low|Email validator|
+|[semver](https://github.com/npm/node-semver#readme)|⚠️Major|Low|Semver utilities|
+
 ## License
 MIT
