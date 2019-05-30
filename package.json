@@ -16,7 +16,12 @@
     },
     "keywords": [
         "SlimIO",
-        "monitoring"
+        "OpenAPI",
+        "swagger",
+        "api",
+        "spec",
+        "descriptor",
+        "api"
     ],
     "author": "SlimIO",
     "license": "MIT",
