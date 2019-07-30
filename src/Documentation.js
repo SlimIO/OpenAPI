@@ -1,14 +1,16 @@
+"use strict";
+
 /**
  * @class Documentation
  *
  * @property {URL} url
- * @property {String} description
+ * @property {string} description
  */
 class Documentation {
     /**
-     * @constructor
-     * @param {!String | URL} url The URL for the target documentation.
-     * @param {String} [description] A short description of the target documentation.
+     * @function
+     * @param {!string | URL} url The URL for the target documentation.
+     * @param {string} [description] A short description of the target documentation.
      */
     constructor(url, description = "") {
         this.url = new URL(url);
@@ -16,9 +18,9 @@ class Documentation {
     }
 
     /**
-     * @method toJSON
+     * @function toJSON
      * @memberof Documentation#
-     * @returns {Object}
+     * @returns {object}
      */
     toJSON() {
         return {

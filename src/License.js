@@ -1,3 +1,5 @@
+"use strict";
+
 // Symbols
 const SymApache2 = Symbol("Apache 2.0");
 const SymMIT = Symbol("MIT");
@@ -17,15 +19,15 @@ const LicensesURL = {
 /**
  * @class License
  *
- * @property {String} name The license name used for the API.
- * @property {String} [url] A URL to the license used for the API. MUST be in the format of a URL.
+ * @property {string} name The license name used for the API.
+ * @property {string} [url] A URL to the license used for the API. MUST be in the format of a URL.
  */
 class License {
     /**
-     * @constructor
+     * @class
      * @memberof License#
-     * @param {!(String | Symbol)} name The license name used for the API.
-     * @param {String} [url] A URL to the license used for the API. MUST be in the format of a URL.
+     * @param {!(string | Symbol)} name The license name used for the API.
+     * @param {string} [url] A URL to the license used for the API. MUST be in the format of a URL.
      *
      * @throws {TypeError}
      * @throws {Error}

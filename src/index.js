@@ -1,3 +1,5 @@
+"use strict";
+
 const Contact = require("./Contact");
 const License = require("./License");
 const Servers = require("./Servers");

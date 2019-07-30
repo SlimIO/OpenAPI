@@ -1,3 +1,5 @@
+"use strict";
+
 const OpenAPI = require(".");
 
 const _t = new OpenAPI();

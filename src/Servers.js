@@ -1,18 +1,20 @@
+"use strict";
+
 // Third-party Dependencies
 const is = require("@slimio/is");
 
 /**
  * @class Servers
- * @doc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#serverObject
+ * @see https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#serverObject
  */
 class Servers {
     /**
-     * @constructor
+     * @class
      * @memberof Servers#
-     * @param {!String} url A URL to the target host
-     * @param {Object} options Servers options
-     * @param {String} [options.description] An optional string describing the host designated by the URL.
-     * @param {Map<String, any>} [options.variables] A map between a variable name and its value.
+     * @param {!string} url A URL to the target host
+     * @param {object} options Servers options
+     * @param {string} [options.description] An optional string describing the host designated by the URL.
+     * @param {Map<string, any>} [options.variables] A map between a variable name and its value.
      *
      * @throws {TypeError}
      */
@@ -31,9 +33,9 @@ class Servers {
     }
 
     /**
-     * @method toJSON
+     * @function toJSON
      * @memberof Servers#
-     * @returns {Object}
+     * @returns {object}
      */
     toJSON() {
         return {

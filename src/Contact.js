@@ -1,21 +1,23 @@
+"use strict";
+
 // Third-party Dependencies
 const EmailValidator = require("email-validator");
 
 /**
  * @class Contact
- * @doc https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#contactObject
+ * @see https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#contactObject
  *
- * @property {String} name The identifying name of the contact person/organization.
+ * @property {string} name The identifying name of the contact person/organization.
  * @property {URL} url The URL pointing to the contact information. MUST be in the format of a URL.
- * @property {String} email The email address of the contact person/organization. MUST be in the format of an email address.
+ * @property {string} email The email address of the contact person/organization. MUST be in the format of an email address.
  */
 class Contact {
     /**
-     * @constructor
+     * @class
      * @memberof Contact#
-     * @param {!String} name The identifying name of the contact person/organization.
-     * @param {!String | URL} url The URL pointing to the contact information. MUST be in the format of a URL.
-     * @param {!String} email email The email address of the contact person/organization. MUST be in the format of an email address.
+     * @param {!string} name The identifying name of the contact person/organization.
+     * @param {!string | URL} url The URL pointing to the contact information. MUST be in the format of a URL.
+     * @param {!string} email email The email address of the contact person/organization. MUST be in the format of an email address.
      *
      * @throws {TypeError}
      * @throws {Error}
@@ -40,9 +42,9 @@ class Contact {
     }
 
     /**
-     * @method toJSON
+     * @function toJSON
      * @memberof Contact#
-     * @returns {Object}
+     * @returns {object}
      */
     toJSON() {
         return {
