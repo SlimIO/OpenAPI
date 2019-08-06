@@ -26,7 +26,7 @@ class License {
     /**
      * @class
      * @memberof License#
-     * @param {!(string | Symbol)} name The license name used for the API.
+     * @param {!(string | symbol)} name The license name used for the API.
      * @param {string} [url] A URL to the license used for the API. MUST be in the format of a URL.
      *
      * @throws {TypeError}
