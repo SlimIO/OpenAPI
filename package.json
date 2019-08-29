@@ -35,6 +35,7 @@
     },
     "homepage": "https://github.com/SlimIO/OpenAPI#readme",
     "dependencies": {
+        "@slimio/arg-checker": "^0.1.1",
         "@slimio/is": "^1.5.0",
         "email-validator": "^2.0.4",
         "semver": "^6.1.1"

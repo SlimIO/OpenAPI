@@ -6,6 +6,7 @@ const { join } = require("path");
 
 // Third-party Dependencies
 const is = require("@slimio/is");
+const argc = require("@slimio/arg-checker");
 const semver = require("semver");
 
 // Internal
@@ -13,7 +14,6 @@ const { License, Contact, Servers, Documentation } = require("./src");
 
 // CONSTANTS
 const OPENAPI_VERSION = "3.0.2";
-const DEFAULT_ENDPOINT = "/";
 
 /**
  * @class OpenAPI
@@ -31,24 +31,19 @@ class OpenAPI {
      *
      * @param {object} fields OpenAPI root fields
      * @param {string} [fields.openapi=3.0.2] Semantic version number of the OpenAPI Specification version that the OpenAPI document uses.
-     * @param {string} [fields.paths=/] The available paths and operations for the API.
      * @param {Servers | Servers[]} [fields.servers] An array of Server Objects, which provide connectivity information to a target server.
      * @param {Documentation} [fields.externalDocs] Additional external documentation.
      *
      * @throws {Error}
-     * @throws {TypeError}
      */
     constructor(fields = Object.create(null)) {
         const isOpenApiStr = is.string(fields.openapi);
         if (isOpenApiStr && semver.valid(fields.openapi) === null) {
             throw new Error("openapi must be a valid semver version");
         }
-        if (!is.nullOrUndefined(fields.paths) && !is.string(fields.paths)) {
-            throw new TypeError("paths must be a string");
-        }
 
         this.openapi = isOpenApiStr ? fields.openapi : OPENAPI_VERSION;
-        this.paths = fields.paths || DEFAULT_ENDPOINT;
+        this.paths = [];
         this.externalDocs = fields.externalDocs || null;
 
         this._info = Object.create(null);
@@ -79,25 +74,13 @@ class OpenAPI {
      * @param {License} [fields.license] The license information for the exposed API.
      * @param {Contact[] | Contact} [fields.contact] The contact information for the exposed API.
      * @returns {void}
-     *
-     * @throws {TypeError}
      */
     info(fields = Object.create(null)) {
-        if (!is.nullOrUndefined(fields.title) && !is.string(fields.title)) {
-            throw new TypeError("title must be a string");
-        }
-        if (!is.nullOrUndefined(fields.description) && !is.string(fields.description)) {
-            throw new TypeError("description must be a string");
-        }
-        if (!is.nullOrUndefined(fields.version) && !is.string(fields.version)) {
-            throw new TypeError("version must be a string");
-        }
-        if (!is.nullOrUndefined(fields.termsOfService) && !is.string(fields.termsOfService)) {
-            throw new TypeError("termsOfService must be a string");
-        }
-        if (!is.nullOrUndefined(fields.contact) && !(fields.contact instanceof Contact)) {
-            throw new TypeError("contact must be a valid Contact Object");
-        }
+        argc(fields.title, [is.nullOrUndefined, is.string]);
+        argc(fields.description, [is.nullOrUndefined, is.string]);
+        argc(fields.version, [is.nullOrUndefined, is.string]);
+        argc(fields.termsOfService, [is.nullOrUndefined, is.string]);
+        argc(fields.termsOfService, [is.nullOrUndefined, (value) => value instanceof Contact]);
 
         // Parse and read local package.json
         const pkgDefault = Object.create(null);

@@ -52,7 +52,6 @@ declare namespace OpenAPI {
 
     interface Root {
         openapi?: string;
-        paths?: string;
         servers?: Servers | Servers[];
     }
 
