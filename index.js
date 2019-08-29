@@ -43,7 +43,7 @@ class OpenAPI {
         }
 
         this.openapi = isOpenApiStr ? fields.openapi : OPENAPI_VERSION;
-        this.paths = [];
+        this.paths = {};
         this.externalDocs = fields.externalDocs || null;
 
         this._info = Object.create(null);
@@ -104,6 +104,21 @@ class OpenAPI {
         }
 
         Object.assign(this._info, pkgDefault, fields);
+    }
+
+    /**
+     * @function addToPath
+     * @memberof OpenAPI#
+     * @param {!string} path
+     * @param  {...any} operations
+     * @returns {void}
+     */
+    addToPath(path = "/", ...operations) {
+        if (!Reflect.has(this.paths, path)) {
+            this.paths[path] = [];
+        }
+        // TODO: check that all operations are Operations class
+        this.paths[path].push(...operations);
     }
 
     /**
