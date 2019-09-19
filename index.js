@@ -11,28 +11,25 @@ const semver = require("semver");
 
 // Internal
 const { License, Contact, Servers, Documentation } = require("./src");
+const { isValidSecurityObj, isValidExternalDoc } = require("./src/utils");
 
 // CONSTANTS
 const OPENAPI_VERSION = "3.0.2";
 
-/**
- * @class OpenAPI
- *
- * @version 0.1.0
- * @author GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>
- */
 class OpenAPI {
     /**
      * @see https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object
      *
-     * @class
+     * @class OpenAPI
+     * @author GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>
      * @memberof OpenAPI#
      * @description This is the root document object of the OpenAPI document.
      *
      * @param {object} fields OpenAPI root fields
      * @param {string} [fields.openapi=3.0.2] Semantic version number of the OpenAPI Specification version that the OpenAPI document uses.
      * @param {Servers | Servers[]} [fields.servers] An array of Server Objects, which provide connectivity information to a target server.
-     * @param {Documentation} [fields.externalDocs] Additional external documentation.
+     * @param {Documentation} [fields.externalDocs=null] Additional external documentation.
+     * @param {object} [fields.security={}] A declaration of which security mechanisms can be used across the API.
      *
      * @throws {Error}
      */
@@ -41,10 +38,13 @@ class OpenAPI {
         if (isOpenApiStr && semver.valid(fields.openapi) === null) {
             throw new Error("openapi must be a valid semver version");
         }
+        argc(fields.security, isValidSecurityObj);
+        argc(fields.externalDocs, isValidExternalDoc);
 
         this.openapi = isOpenApiStr ? fields.openapi : OPENAPI_VERSION;
         this.paths = {};
         this.externalDocs = fields.externalDocs || null;
+        this.security = is.nullOrUndefined(fields.security) ? {} : fields.security;
 
         this._info = Object.create(null);
         if (fields.servers instanceof Servers) {
@@ -117,6 +117,7 @@ class OpenAPI {
         if (!Reflect.has(this.paths, path)) {
             this.paths[path] = [];
         }
+
         // TODO: check that all operations are Operations class
         this.paths[path].push(...operations);
     }
@@ -132,7 +133,8 @@ class OpenAPI {
             info: this._info,
             servers: this.servers,
             paths: this.paths,
-            externalDocs: this.externalDocs
+            externalDocs: this.externalDocs,
+            security: this.security
         };
     }
 }

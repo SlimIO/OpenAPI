@@ -52,6 +52,11 @@ declare namespace OpenAPI {
 
     interface Root {
         openapi?: string;
+        security?: Security;
+        externalDocs?: {
+            description?: string;
+            url: string;
+        };
         servers?: Servers | Servers[];
     }
 
@@ -81,11 +86,16 @@ declare namespace OpenAPI {
         variables?: any;
     }
 
+    interface Security {
+        [key: string]: string[];
+    }
+
     interface JSON {
         openapi: string;
         paths: string;
         servers: ServersJSON | ServersJSON[];
         externalDocs?: DocumentationJSON;
+        security: Security;
         info: {
             title: string;
             version: string;
