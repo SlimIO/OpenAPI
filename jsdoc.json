@@ -12,7 +12,8 @@
             "./src/Documentation.js",
             "./src/index.js",
             "./src/License.js",
-            "./src/Servers.js"
+            "./src/Servers.js",
+            "./src/utils.js"
         ],
         "exclude": [
             "node_modules",
