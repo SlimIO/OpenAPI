@@ -104,6 +104,8 @@ class OpenAPI {
         }
 
         Object.assign(this._info, pkgDefault, fields);
+
+        return this;
     }
 
     /**

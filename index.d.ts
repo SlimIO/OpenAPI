@@ -40,7 +40,7 @@ declare class OpenAPI {
     public static Documentation: typeof Documentation;
 
     constructor(options?: OpenAPI.Root);
-    info(fields?: OpenAPI.Info): void;
+    info(fields?: OpenAPI.Info): this;
     toJSON(): OpenAPI.JSON;
 }
 
