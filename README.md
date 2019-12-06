@@ -5,6 +5,7 @@
 ![dep](https://img.shields.io/david/SlimIO/OpenAPI)
 ![size](https://img.shields.io/github/languages/code-size/SlimIO/OpenAPI)
 ![known vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/SlimIO/OpenAPI)
+[![Build Status](https://travis-ci.com/SlimIO/OpenAPI.svg?branch=master)](https://travis-ci.com/SlimIO/OpenAPI)
 
 OpenAPI - Programmatically implementation
 
